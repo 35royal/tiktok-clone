@@ -1,0 +1,7 @@
+{
+    "version": "1.0",
+    "videos": [
+        { "url": "tzgM1pe.mp4", "description": "Video mẫu 1"},
+        { "url": "another-video.mp4", "description": "Video mẫu 2" }
+    ]
+}
