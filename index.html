@@ -181,7 +181,7 @@
                         const cachedVideos = localStorage.getItem(CACHE_KEY);
                         if (cachedVideos) {
                             const cachedData = JSON.parse(cachedVideos);
-                            const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`, { mode: 'no-cors' });
+                            const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`);
                             if (response.ok) {
                                 const newData = await response.json();
                                 if (newData.version === cachedData.version) {
@@ -202,7 +202,7 @@
 
                 if (!shouldUseCache) {
                     try {
-                        const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`, { mode: 'no-cors' });
+                        const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`);
                         if (!response.ok) throw new Error("Lỗi tải videos.json");
                         const data = await response.json();
                         videoUrls = data.videos
@@ -240,7 +240,7 @@
                     slide.className = "video-slide";
                     slide.innerHTML = `
                         <div class="video-wrapper">
-                            <video src="${video.url}" playsinline preload="${index === 1 ? "auto" : "none"}" autoplay muted></video>
+                            <video src="${video.url}" playsinline preload="${index === 1 ? "auto" : "none"}" autoplay></video>
                             <div class="progress-bar"><div class="progress"></div></div>
                             <div class="info"><p>${video.description || "Không có mô tả"}</p></div>
                         </div>
@@ -291,6 +291,16 @@
                 const videos = document.querySelectorAll("video");
                 let hideControlsTimeout;
 
+                // Bật âm thanh sau khi người dùng tương tác
+                document.addEventListener("click", () => {
+                    videos.forEach((video) => {
+                        if (video.muted) {
+                            video.muted = false;
+                            console.log("Đã bật âm thanh cho video:", video.src);
+                        }
+                    });
+                }, { once: true });
+
                 observer = new IntersectionObserver(
                     (entries) => {
                         entries.forEach((entry) => {
@@ -304,7 +314,7 @@
                                     currentIndex = (currentIndex + 1) % videoUrls.length;
                                     loadVideos(true);
                                 } else if (index === 1) {
-                                    video.play().catch(() => console.warn("Lỗi phát video:", video.src)); // Luôn phát video trung tâm
+                                    video.play().catch(() => console.warn("Lỗi phát video:", video.src));
                                     clearTimeout(hideControlsTimeout);
                                     const controls = video.parentElement.querySelector(".controls");
                                     if (controls) {
@@ -401,6 +411,7 @@
                 const video = btn.closest(".video-slide").querySelector("video");
                 video.muted = !video.muted;
                 btn.textContent = video.muted ? "🔇" : "🔊";
+                console.log("Muted:", video.muted);
             }
 
             function scrollToNext() {
