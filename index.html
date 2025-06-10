@@ -148,9 +148,9 @@
         <button class="refresh-btn" onclick="clearCacheAndReload()">Lag thì làm mới video</button>
 
         <script>
-            const BASE_URL = "https://cdn.anh.moe/s9/";
-            const VIDEOS_JSON_URL = "/test-video/videos.json";
-            const PROJECT_ROOT = "/test-video/";
+            const BASE_URL_VIDEO = "https://cdn.anh.moe/s9/";       // Đường dẫn nơi lưu trữ video
+            const VIDEOS_JSON_URL = "/test-video/videos.json";      // Đường dẫn đến videos.json
+            const REPOSITORY_PROJECT_ROOT = "/test-video/";         // Tên repository nếu xây dựng trên GitHub Pages
 
             let videoUrls = [];
             let currentIndex = 0;
@@ -187,7 +187,7 @@
                                 if (newData.version === cachedData.version) {
                                     videoUrls = cachedData.videos.map(v => ({
                                         ...v,
-                                        url: v.url.startsWith("http") ? v.url : `${BASE_URL}${v.url}`
+                                        url: v.url.startsWith("http") ? v.url : `${BASE_URL_VIDEO}${v.url}`
                                     }));
                                     shouldUseCache = true;
                                 }
@@ -209,7 +209,7 @@
                             .filter(v => v.url && isValidVideoUrl(v.url))
                             .map(v => ({
                                 ...v,
-                                url: v.url.startsWith("http") ? v.url : `${BASE_URL}${v.url}`
+                                url: v.url.startsWith("http") ? v.url : `${BASE_URL_VIDEO}${v.url}`
                             }));
                         localStorage.setItem(CACHE_KEY, JSON.stringify({ version: data.version, videos: videoUrls }));
                         localStorage.setItem(CACHE_EXPIRY_KEY, Date.now() + CACHE_DURATION);
@@ -269,7 +269,7 @@
 
             async function clearCacheAndReload() {
                 if ("serviceWorker" in navigator) {
-                    const registration = await navigator.serviceWorker.getRegistration(`${PROJECT_ROOT}sw.js`);
+                    const registration = await navigator.serviceWorker.getRegistration(`${REPOSITORY_PROJECT_ROOT}sw.js`);
                     if (registration) {
                         await registration.unregister();
                         await caches.delete("tiktok-clone-v1");
@@ -428,7 +428,7 @@
 
             if ("serviceWorker" in navigator) {
                 window.addEventListener("load", () => {
-                    navigator.serviceWorker.register(`${PROJECT_ROOT}sw.js`).then(
+                    navigator.serviceWorker.register(`${REPOSITORY_PROJECT_ROOT}sw.js`).then(
                         (registration) => {
                             console.log("Service Worker đăng ký thành công:", registration.scope);
                         },
