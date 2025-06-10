@@ -1,5 +1,5 @@
 const CACHE_NAME = "tiktok-clone-v1";
-const REPOSITORY_PROJECT_ROOT = "/test-video/";  // tên repository nếu xây dựng trên GitHub Pages
+const REPOSITORY_PROJECT_ROOT = "/tiktok-clone/";  // tên repository nếu xây dựng trên GitHub Pages
 
 self.addEventListener("install", (event) => {
     event.waitUntil(
