@@ -156,7 +156,7 @@
             const VIDEOS_JSON_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? "/videos.json" : "/tiktok-clone/videos.json";
 
             // Xác định PROJECT_ROOT dựa trên môi trường
-            const PROJECT_ROOT = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? "/" : "/tiktok-clone/";
+            const REPOSITORY_PROJECT_ROOT = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? "/" : "/tiktok-clone/";
 
 
             let videoUrls = [];
@@ -288,7 +288,7 @@
 
             async function clearCacheAndReload() {
                 if ("serviceWorker" in navigator) {
-                    const registration = await navigator.serviceWorker.getRegistration(`${REPOSITORY_PROJECT_ROOT}sw.js`);
+                    const registration = await navigator.serviceWorker.getRegistration(`${REPOSITORY_REPOSITORY_}sw.js`);
                     if (registration) {
                         await registration.unregister();
                         await caches.delete("tiktok-clone-v1");
