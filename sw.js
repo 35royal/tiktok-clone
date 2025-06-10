@@ -1,5 +1,6 @@
 const CACHE_NAME = "tiktok-clone-v1";
-const PROJECT_ROOT = "/";
+const PROJECT_ROOT = "/test-video/";  // Tên Repository github nếu cài trên github pages
+// const PROJECT_ROOT = "/";  // Dùng nếu cài trên máy chủ web khác hoặc localhost
 
 self.addEventListener("install", (event) => {
     event.waitUntil(

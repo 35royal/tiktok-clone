@@ -148,9 +148,12 @@
         <button class="refresh-btn" onclick="clearCacheAndReload()">Lag thì làm mới video</button>
 
         <script>
-            const BASE_URL = "https://cdn.anh.moe/s9/";
-            const VIDEOS_JSON_URL = "videos.json";
-            const PROJECT_ROOT = "/";
+
+            const BASE_URL = "https://cdn.anh.moe/s9/";             // Base URL cho video WEB CDN
+            const VIDEOS_JSON_URL = "/test-video/videos.json";      // Đường dẫn đến file videos.json
+            const PROJECT_ROOT = "/test-video/";                    // Thư mục gốc của dự án, tên repository nếu là GitHub Pages
+
+
             let videoUrls = [];
             let currentIndex = 0;
             let isReloading = false;
