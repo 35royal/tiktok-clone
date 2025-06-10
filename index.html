@@ -148,11 +148,19 @@
         <button class="refresh-btn" onclick="clearCacheAndReload()">Lag thì làm mới video</button>
 
         <script>
-
-            const BASE_URL = "https://cdn.anh.moe/s9/";             // Base URL cho video WEB CDN
-            const VIDEOS_JSON_URL = "/test-video/videos.json";      // Đường dẫn đến file videos.json
-            const PROJECT_ROOT = "/test-video/";                    // Thư mục gốc của dự án, tên repository nếu là GitHub Pages
-
+            const BASE_URL = "https://cdn.anh.moe/s9/";
+            
+            const VIDEOS_JSON_URL = "/test-video/videos.json";
+            // note 3 hàm trên là sao
+            // BASE_URL là đường dẫn gốc đến các video và ảnh nền.
+            // Nếu bạn sử dụng GitHub Pages, BASE_URL sẽ là https://tongtrankien1605.github.io/test-video/
+            const PROJECT_ROOT = "/test-video/";
+            // note 3 hàm trên là sao
+            // VIDEOS_JSON_URL là đường dẫn đến file videos.json chứa thông tin về các video.
+            // Nếu bạn sử dụng GitHub Pages, VIDEOS_JSON_URL sẽ là /test-video/videos.json
+            // PROJECT_ROOT là đường dẫn gốc của dự án, dùng để xác định vị trí của các tài nguyên như service worker.
+            // Nếu bạn sử dụng GitHub Pages, PROJECT_ROOT sẽ là /test-video/
+   
 
             let videoUrls = [];
             let currentIndex = 0;
@@ -231,17 +239,6 @@
 
                 if (!isReload) {
                     currentIndex = Math.floor(Math.random() * videoUrls.length);
-                }
-
-                const currentVideo = videoUrls[currentIndex];
-                try {
-                    const res = await fetch(currentVideo.url, { method: "GET", mode: "no-cors", credentials: "omit" });
-                    if (!res.ok) throw new Error(`Video không tải được: ${currentVideo.url}`);
-                } catch (e) {
-                    console.warn(`Lỗi fetch video: ${currentVideo.url}`, e);
-                    container.innerHTML = '<p class="error-message">Lỗi tải video</p>';
-                    isReloading = false;
-                    return;
                 }
 
                 const orderedVideos = getOrderedVideos();
