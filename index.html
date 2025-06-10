@@ -149,18 +149,8 @@
 
         <script>
             const BASE_URL = "https://cdn.anh.moe/s9/";
-            
             const VIDEOS_JSON_URL = "/test-video/videos.json";
-            // note 3 hàm trên là sao
-            // BASE_URL là đường dẫn gốc đến các video và ảnh nền.
-            // Nếu bạn sử dụng GitHub Pages, BASE_URL sẽ là https://tongtrankien1605.github.io/test-video/
             const PROJECT_ROOT = "/test-video/";
-            // note 3 hàm trên là sao
-            // VIDEOS_JSON_URL là đường dẫn đến file videos.json chứa thông tin về các video.
-            // Nếu bạn sử dụng GitHub Pages, VIDEOS_JSON_URL sẽ là /test-video/videos.json
-            // PROJECT_ROOT là đường dẫn gốc của dự án, dùng để xác định vị trí của các tài nguyên như service worker.
-            // Nếu bạn sử dụng GitHub Pages, PROJECT_ROOT sẽ là /test-video/
-   
 
             let videoUrls = [];
             let currentIndex = 0;
@@ -250,7 +240,7 @@
                     slide.className = "video-slide";
                     slide.innerHTML = `
                         <div class="video-wrapper">
-                            <video src="${video.url}" playsinline preload="${index === 1 ? "auto" : "none"}"></video>
+                            <video src="${video.url}" playsinline preload="${index === 1 ? "auto" : "none"}" autoplay muted></video>
                             <div class="progress-bar"><div class="progress"></div></div>
                             <div class="info"><p>${video.description || "Không có mô tả"}</p></div>
                         </div>
@@ -314,9 +304,7 @@
                                     currentIndex = (currentIndex + 1) % videoUrls.length;
                                     loadVideos(true);
                                 } else if (index === 1) {
-                                    if (!isFirstLoad) {
-                                        video.play().catch(() => console.warn("Lỗi phát video:", video.src));
-                                    }
+                                    video.play().catch(() => console.warn("Lỗi phát video:", video.src)); // Luôn phát video trung tâm
                                     clearTimeout(hideControlsTimeout);
                                     const controls = video.parentElement.querySelector(".controls");
                                     if (controls) {
