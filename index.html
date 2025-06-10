@@ -148,9 +148,9 @@
         <button class="refresh-btn" onclick="clearCacheAndReload()">Lag thì làm mới video</button>
 
         <script>
-            const BASE_URL = "https://cdn.anh.moe/s9/"; // CDN tùy chỉnh
-            const VIDEOS_JSON_URL = "videos.json"; // Đường dẫn tương đối
-            const PROJECT_ROOT = "/"; // Gốc dự án
+            const BASE_URL = "https://cdn.anh.moe/s9/";
+            const VIDEOS_JSON_URL = "videos.json";
+            const PROJECT_ROOT = "/";
             let videoUrls = [];
             let currentIndex = 0;
             let isReloading = false;
@@ -180,13 +180,13 @@
                         const cachedVideos = localStorage.getItem(CACHE_KEY);
                         if (cachedVideos) {
                             const cachedData = JSON.parse(cachedVideos);
-                            const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`);
+                            const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`, { mode: 'no-cors' });
                             if (response.ok) {
                                 const newData = await response.json();
                                 if (newData.version === cachedData.version) {
-                                    videoUrls = cachedData.videos.map((v) => ({
+                                    videoUrls = cachedData.videos.map(v => ({
                                         ...v,
-                                        url: v.url.startsWith("http") ? v.url : `${BASE_URL}${v.url}`,
+                                        url: v.url.startsWith("http") ? v.url : `${BASE_URL}${v.url}`
                                     }));
                                     shouldUseCache = true;
                                 }
@@ -201,14 +201,14 @@
 
                 if (!shouldUseCache) {
                     try {
-                        const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`);
+                        const response = await fetch(`${VIDEOS_JSON_URL}?v=${Date.now()}`, { mode: 'no-cors' });
                         if (!response.ok) throw new Error("Lỗi tải videos.json");
                         const data = await response.json();
                         videoUrls = data.videos
-                            .filter((v) => v.url && isValidVideoUrl(v.url))
-                            .map((v) => ({
+                            .filter(v => v.url && isValidVideoUrl(v.url))
+                            .map(v => ({
                                 ...v,
-                                url: v.url.startsWith("http") ? v.url : `${BASE_URL}${v.url}`,
+                                url: v.url.startsWith("http") ? v.url : `${BASE_URL}${v.url}`
                             }));
                         localStorage.setItem(CACHE_KEY, JSON.stringify({ version: data.version, videos: videoUrls }));
                         localStorage.setItem(CACHE_EXPIRY_KEY, Date.now() + CACHE_DURATION);
@@ -232,7 +232,7 @@
 
                 const currentVideo = videoUrls[currentIndex];
                 try {
-                    const res = await fetch(currentVideo.url, { method: "GET", mode: "cors", credentials: "omit" });
+                    const res = await fetch(currentVideo.url, { method: "GET", mode: "no-cors", credentials: "omit" });
                     if (!res.ok) throw new Error(`Video không tải được: ${currentVideo.url}`);
                 } catch (e) {
                     console.warn(`Lỗi fetch video: ${currentVideo.url}`, e);
@@ -249,18 +249,18 @@
                     const slide = document.createElement("div");
                     slide.className = "video-slide";
                     slide.innerHTML = `
-                <div class="video-wrapper">
-                    <video src="${video.url}" playsinline preload="${index === 1 ? "auto" : "none"}"></video>
-                    <div class="progress-bar"><div class="progress"></div></div>
-                    <div class="info"><p>${video.description || "Không có mô tả"}</p></div>
-                </div>
-                <div class="controls">
-                    <button class="control-btn" onclick="togglePlay(this)">⏯️</button>
-                    <button class="control-btn" onclick="toggleMute(this)">🔊</button>
-                    <button class="control-btn" onclick="scrollToPrev()">⬆️</button>
-                    <button class="control-btn" onclick="scrollToNext()">⬇️</button>
-                </div>
-            `;
+                        <div class="video-wrapper">
+                            <video src="${video.url}" playsinline preload="${index === 1 ? "auto" : "none"}"></video>
+                            <div class="progress-bar"><div class="progress"></div></div>
+                            <div class="info"><p>${video.description || "Không có mô tả"}</p></div>
+                        </div>
+                        <div class="controls">
+                            <button class="control-btn" onclick="togglePlay(this)">⏯️</button>
+                            <button class="control-btn" onclick="toggleMute(this)">🔊</button>
+                            <button class="control-btn" onclick="scrollToPrev()">⬆️</button>
+                            <button class="control-btn" onclick="scrollToNext()">⬇️</button>
+                        </div>
+                    `;
                     container.appendChild(slide);
                 });
 

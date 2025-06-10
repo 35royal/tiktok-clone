@@ -35,7 +35,7 @@ self.addEventListener("fetch", (event) => {
     const cacheKey = new Request(requestUrl.pathname, {
         method: event.request.method,
         headers: event.request.headers,
-        mode: "cors",
+        mode: "no-cors",
         cache: "default",
         credentials: "omit"
     });
@@ -48,7 +48,7 @@ self.addEventListener("fetch", (event) => {
                     return cachedResponse;
                 }
 
-                return fetch(event.request, { mode: "cors", credentials: "omit" })
+                return fetch(event.request, { mode: "no-cors" })
                     .then((networkResponse) => {
                         if (networkResponse.ok && requestUrl.pathname.match(/\.(ico|html|jpg|json|mp4|webm|ogg)$/i)) {
                             console.log("Caching:", requestUrl.pathname);
