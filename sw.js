@@ -1,8 +1,6 @@
 const CACHE_NAME = "tiktok-clone-v1";
 
-const REPOSITORY_PROJECT_ROOT = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" 
-    ? "/" 
-    : "/tiktok-clone/";
+const REPOSITORY_PROJECT_ROOT = "/tiktok-clone/";
 
 self.addEventListener("install", (event) => {
     event.waitUntil(

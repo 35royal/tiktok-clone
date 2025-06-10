@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>TikTok Clone by Tống Trần Kiên</title>
-        <link rel="icon" type="image/x-icon" href="https://tongtrankien1605.github.io/daohuyenmy/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <style>
             body {
                 margin: 0;
@@ -149,14 +149,11 @@
 
         <script>
             
-            // Giữ BASE_URL nguyên vì là URL gốc của video
-            const BASE_URL_VIDEO = "https://cdn.anh.moe/s9/";
 
-            // Xác định VIDEOS_JSON_URL dựa trên môi trường
-            const VIDEOS_JSON_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? "/videos.json" : "/tiktok-clone/videos.json";
-
-            // Xác định PROJECT_ROOT dựa trên môi trường
-            const REPOSITORY_PROJECT_ROOT = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? "/" : "/tiktok-clone/";
+            // Đặt các biến toàn cục
+            const BASE_URL_VIDEO            = "https://cdn.anh.moe/s9/";
+            const VIDEOS_JSON_URL           = "/tiktok-clone/videos.json";
+            const REPOSITORY_PROJECT_ROOT   = "/tiktok-clone/";
 
 
             let videoUrls = [];
