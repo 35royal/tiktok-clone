@@ -1,17 +1,24 @@
-## tiktok-clone : Lưu trữ video, có xây dựng Base_URL để thay thế đường dẫn, không cần sửa logic xử lý, chỉ cần sửa các BASE_URL
+## 🚀 tiktok-clone : Lướt video tương tự tiktok, có xây dựng các Base_URL để chủ động thay đổi đường dẫn mà không cần sửa logic xử lý 
 
 </br>
 
-## Đây là code base, dùng để xây dựng các chương trình mới
- **Mỗi lần truy cập, xem video sẽ lưu vào cache để lướt lại không cần tải từ server. Mỗi lần thoát ra và truy cập thì tiến trình lặp lại**
+## 🌐 Truy cập để xem  [TẠI ĐÂY](https://tongtrankien1605.github.io/tiktok-clone) nhé !
 
 </br>
 
-## giải thích:
-            // - BASE_URL_VIDEO: Đường dẫn gốc đến thư mục chứa video.
-            // - VIDEOS_JSON_URL: Đường dẫn đến file JSON chứa thông tin video.
-            // - REPOSITORY_PROJECT_ROOT: Đường dẫn gốc của dự án, dùng để đăng ký Service Worker.
-            // - Nếu đang chạy trên GitHub Pages, sử dụng đường dẫn từ kho lưu trữ.
-            // - Nếu đang chạy trên localhost, sử dụng đường dẫn cục bộ.
-            // - Nếu đang chạy trên một tên miền khác, sử dụng đường dẫn tương ứng.
-            // - Đảm bảo các đường dẫn này được cấu hình đúng để tải video và JSON từ đúng nguồn.
+## 🏆 Đây là code base, có thể dùng để xây dựng phát triển thêm các chương trình mới
+ **👉 Mỗi lần truy cập, xem video sẽ lưu vào cache để lướt lại không cần tải từ server. Mỗi lần thoát ra và truy cập thì tiến trình lặp lại**
+
+</br>
+
+## 💻 Giải thích các BASE_URL:
+
+            - BASE_URL_VIDEO: Đường dẫn gốc đến thư mục chứa video. 
+            ( ví dụ https://cdn.anh.moe/s9/1VsTi103.mp4 => thì BASE_URL_VIDEO = "https://cdn.anh.moe/s9/" )
+
+            - REPOSITORY_PROJECT_ROOT: Đường dẫn gốc của dự án, dùng để đăng ký Service Worker.
+            ( ví dụ xây dựng trên github có repository là tiktok-clone => thì REPOSITORY_PROJECT_ROOT = "/tiktok-clone/" )
+              
+            - VIDEOS_JSON_URL: Đường dẫn đến file JSON chứa thông tin video như Title, URL, desription.
+            ( ví dụ xây dựng trên github có repository là tiktok-clone => thì VIDEOS_JSON_URL = "/tiktok-clone/videos.json" )
+            
