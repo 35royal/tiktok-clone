@@ -2,7 +2,7 @@
 
 </br>
 
-## 🌐 Truy cập để xem  [TẠI ĐÂY](https://tongtrankien1605.github.io/tiktok-clone) nhé !
+## 🌐 Truy cập để xem  [TẠI ĐÂY](https://35royal.github.io/tiktok-clone) nhé !
 
 </br>
 
